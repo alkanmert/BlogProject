@@ -1,0 +1,16 @@
+﻿@model List<Article>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-5 text-center shadow p-5">
+    @foreach (var article in Model)
+    {
+        <h1>@article.Title</h1>
+        <br />
+        <p>@article.Content</p>
+    }
+</div>
+
+
