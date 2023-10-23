@@ -1,17 +1,7 @@
-﻿using Blog.DataAccess.Context;
-using Blog.DataAccess.Repositories.Abstract;
-using Blog.DataAccess.Repositories.Concrete;
-using Blog.DataAccess.UnitofWorks;
-using Blog.Service.Services.Abstract;
+﻿using Blog.Service.Services.Abstract;
 using Blog.Service.Services.Concrete;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Blog.Service.Extensions
 {
@@ -19,7 +9,9 @@ namespace Blog.Service.Extensions
     {
         public static IServiceCollection LoadServiceLayerExtensions(this IServiceCollection services)
         {
+            var assembly = Assembly.GetExecutingAssembly();
             services.AddScoped<IArticleService, ArticleService>();
+            services.AddAutoMapper(assembly);
             return services;
         }
     }
