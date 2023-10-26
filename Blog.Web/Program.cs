@@ -26,8 +26,8 @@ builder.Services.AddIdentity<AppUser, AppRole>(opt =>
 
 builder.Services.ConfigureApplicationCookie(config =>
 {
-    config.LoginPath = new PathString("Admin/Auth/Login");
-    config.LogoutPath = new PathString("Admin/Auth/Logout");
+    config.LoginPath = new PathString("/Admin/Auth/Login");
+    config.LogoutPath = new PathString("/Admin/Auth/Logout");
     config.Cookie = new CookieBuilder
     {
         Name = "Blog",
@@ -37,7 +37,7 @@ builder.Services.ConfigureApplicationCookie(config =>
     };
     config.SlidingExpiration = true;
     config.ExpireTimeSpan = TimeSpan.FromDays(1);
-    config.AccessDeniedPath = new PathString("Admin/Auth/AccessDenied");
+    config.AccessDeniedPath = new PathString("/Admin/Auth/AccessDenied");
 });
 
 
