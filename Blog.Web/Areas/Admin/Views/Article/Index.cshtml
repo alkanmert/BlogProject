@@ -1,0 +1,65 @@
+﻿@model List<ViewArticle>
+
+<div class="container mt-5 shadow" style="background-color:white">
+
+    <div class="d-flex d-flex justify-content-between  py-3 mb-4">
+        <h4 class="fw-bold">
+            <span class="text-muted fw-light">Makale Yönetimi /</span> Makaleler
+        </h4>
+
+        <a asp-area="Admin" asp-controller="Article" asp-action="Add" class="icon-link icon-link-hover" style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);">
+           <i class="bi fa-solid fa-square-plus" aria-hidden="true"><use xlink:href="#clipboard"></use></i>
+            Makale Ekle
+        </a>
+
+    </div>
+
+    <table id="articlesTable" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Başlık</th>
+                <th>Kategori</th>
+                <th>Oluşturulma Tarihi</th>
+                <th>Oluşturan</th>
+                <th>Görünüleme Sayısı</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var article in Model)
+            {
+                <tr name="@article.Id">
+                    <td>@article.Title</td>
+                    <td>@article.Category.Name</td>
+                    <td>@article.CreatedDate</td>
+                    <td>@article.Author</td>
+                    <td>@article.ViewCount</td>
+                    <td>@(article.IsDeleted ? "Aktif Değil" : "Aktif")</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" data-id="@article.Id" asp-area="Admin" asp-controller="Article" asp-action="Update" asp-route-articleId="@article.Id">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Başlık</th>
+                <th>Kategori</th>
+                <th>Oluşturulma Tarihi</th>
+                <th>Oluşturan</th>
+                <th>Görünüleme Sayısı</th>
+                <th>Durum</th>
+                <th>İşlemler</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+@section Scripts{
+    <script src="~/js/site.js" type="application/ecmascript"></script>
+    <script src="~/js/articleindex.js" type="application/ecmascript"></script>
+}

@@ -18,14 +18,20 @@ namespace Blog.DataAccess.Mappings
                 Id = Guid.Parse("5A6B603D-C15A-4508-AE7C-49F82EA5E8B0"),
                 FileName = "Deneme",
                 FileType = "jpg",
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.Now,
+                ModifiedBy = null,
+                DeletedBy = null,
+                IsDeleted = false,
             },
             new Image
             {
                 Id = Guid.Parse("8A7B7E4B-956B-4907-9945-B6864F6B3CCB"),
                 FileName = "Deneme2",
                 FileType = "png",
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.Now,
+                ModifiedBy = null,
+                DeletedBy = null,
+                IsDeleted = false
             });
         }
     }

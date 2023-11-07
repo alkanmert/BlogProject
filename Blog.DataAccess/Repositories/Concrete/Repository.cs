@@ -19,7 +19,7 @@ namespace Blog.DataAccess.Repositories.Concrete
             this.dbContext = dbContext;
         }
         private DbSet<T> Table { get => dbContext.Set<T>(); }
-        public async Task<List<T>>GetAllAsync(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includeProperties)
         {
             IQueryable<T> query = Table;
             if (predicate != null)

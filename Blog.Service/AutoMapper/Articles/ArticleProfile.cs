@@ -9,6 +9,9 @@ namespace Blog.Service.AutoMapper.Articles
         public ArticleProfile()
         {
             CreateMap<ViewArticle, Article>().ReverseMap();
+            CreateMap<ViewArticleUpdate, Article>().ReverseMap();
+            CreateMap<ViewArticleUpdate, ViewArticle>().ReverseMap();
+
         }
     }
 }

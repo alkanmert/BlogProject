@@ -13,8 +13,8 @@ namespace Blog.Entity.Entities
     {
         public string Title { get; set; }
         public string Content { get; set; }
-        public int ViewCount { get; set; }
-        public string Author { get; set; }
+        public int ViewCount { get; set; } = 0;
+        public string Author { get; set; } = "undefined";
         public  Guid CategoryId { get; set; }
         public Category Category { get; set; }
         public Guid? ImageId { get; set; }

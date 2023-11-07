@@ -16,11 +16,45 @@ namespace Blog.Service.Services.Concrete
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
-        public async Task<List<ViewArticle>> GetAllArticleAsync()
+
+        public async Task CreateArticleAsync(ViewArticleAdd viewArticleAdd)
         {
-            var articles = await unitOfWork.GetRepository<Article>().GetAllAsync();
+            var userId = Guid.Parse("5746464F-C6D1-4F4C-91F8-A106E489E20E");
+            
+            var article = new Article
+            {
+                Title = viewArticleAdd.Title,
+                Content = viewArticleAdd.Content,
+                CategoryId = viewArticleAdd.CategoryId,
+                UserId = userId
+            };
+
+            await unitOfWork.GetRepository<Article>().AddAsync(article);
+            await unitOfWork.SaveAsync();
+        }
+
+        public async Task<List<ViewArticle>> GetAllArticlesWithCategoryNonDeletedAsync()
+        {
+            var articles = await unitOfWork.GetRepository<Article>().GetAllAsync(x => !x.IsDeleted, x => x.Category);
             var map = mapper.Map<List<ViewArticle>>(articles);
             return map;
-        }   
+        }
+        public async Task<ViewArticle> GetArticleWithCategoryNonDeletedAsync(Guid articleId)
+        {
+            var article = await unitOfWork.GetRepository<Article>().GetAsync(x => !x.IsDeleted && x.Id == articleId, x => x.Category);
+            var map = mapper.Map<ViewArticle>(article);
+            return map;
+        }
+        public async Task UpdateArticleAsync(ViewArticleUpdate viewArticleUpdate) 
+        { 
+            var article = await unitOfWork.GetRepository<Article>().GetAsync(x => !x.IsDeleted && x.Id == viewArticleUpdate.Id, x => x.Category);
+            
+            article.Title = viewArticleUpdate.Title;
+            article.Content = viewArticleUpdate.Content;
+            article.CategoryId = viewArticleUpdate.CategoryId;
+
+            await unitOfWork.GetRepository<Article>().UpdateAsync(article);
+            await unitOfWork.SaveAsync();
+        }
     }
 }

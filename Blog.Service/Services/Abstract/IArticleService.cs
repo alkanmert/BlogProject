@@ -5,6 +5,9 @@ namespace Blog.Service.Services.Abstract
 {
     public interface IArticleService
     {
-        Task<List<ViewArticle>> GetAllArticleAsync();
+        Task<List<ViewArticle>> GetAllArticlesWithCategoryNonDeletedAsync();
+        Task<ViewArticle> GetArticleWithCategoryNonDeletedAsync(Guid articleId);
+        Task UpdateArticleAsync(ViewArticleUpdate viewArticleUpdate);
+        Task CreateArticleAsync(ViewArticleAdd viewArticleAdd);
     }
 }
