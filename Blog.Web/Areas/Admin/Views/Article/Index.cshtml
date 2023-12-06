@@ -40,6 +40,9 @@
                         <a class="btn btn-primary btn-sm" data-id="@article.Id" asp-area="Admin" asp-controller="Article" asp-action="Update" asp-route-articleId="@article.Id">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
+                        <a class="btn btn-danger btn-sm" data-id="@article.Id" asp-area="Admin" asp-controller="Article" asp-action="Delete" asp-route-articleId="@article.Id">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
             }
@@ -60,6 +63,7 @@
 
 
 @section Scripts{
-    <script src="~/js/site.js" type="application/ecmascript"></script>
-    <script src="~/js/articleindex.js" type="application/ecmascript"></script>
+    <script>
+        new DataTable('#articlesTable');
+    </script>
 }

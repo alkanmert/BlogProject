@@ -20,18 +20,13 @@ namespace Blog.Service.Services.Concrete
         public async Task CreateArticleAsync(ViewArticleAdd viewArticleAdd)
         {
             var userId = Guid.Parse("5746464F-C6D1-4F4C-91F8-A106E489E20E");
-            
-            var article = new Article
-            {
-                Title = viewArticleAdd.Title,
-                Content = viewArticleAdd.Content,
-                CategoryId = viewArticleAdd.CategoryId,
-                UserId = userId
-            };
+            var imageId = Guid.Parse("5A6B603D-C15A-4508-AE7C-49F82EA5E8B0");
+            var article = new Article(viewArticleAdd.Title,viewArticleAdd.Content,userId,viewArticleAdd.CategoryId,imageId);
 
             await unitOfWork.GetRepository<Article>().AddAsync(article);
             await unitOfWork.SaveAsync();
         }
+
 
         public async Task<List<ViewArticle>> GetAllArticlesWithCategoryNonDeletedAsync()
         {
@@ -45,6 +40,19 @@ namespace Blog.Service.Services.Concrete
             var map = mapper.Map<ViewArticle>(article);
             return map;
         }
+
+        public async Task SafeDeleteArticleAsync(Guid articleId)
+        {
+            var article = await unitOfWork.GetRepository<Article>().GetByGuidAsync(articleId);
+           
+            article.IsDeleted = true;
+            article.DeletedDate = DateTime.Now;
+
+            await unitOfWork.GetRepository<Article>().UpdateAsync(article);
+            
+            await unitOfWork.SaveAsync();
+        }
+
         public async Task UpdateArticleAsync(ViewArticleUpdate viewArticleUpdate) 
         { 
             var article = await unitOfWork.GetRepository<Article>().GetAsync(x => !x.IsDeleted && x.Id == viewArticleUpdate.Id, x => x.Category);

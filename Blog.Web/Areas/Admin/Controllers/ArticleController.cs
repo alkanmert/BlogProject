@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using Blog.Entity.Entities;
 using Blog.Entity.ViewModels.Articles;
+using Blog.Service.Extensions;
 using Blog.Service.Services.Abstract;
 using Blog.Service.Services.Concrete;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
@@ -13,12 +16,14 @@ namespace Blog.Web.Areas.Admin.Controllers
         private readonly IArticleService articleService;
         private readonly ICategoryService categoryService;
         private readonly IMapper mapper;
+        private readonly IValidator<Article> validator;
 
-        public ArticleController(IArticleService articleService, ICategoryService categoryService, IMapper mapper)
+        public ArticleController(IArticleService articleService, ICategoryService categoryService, IMapper mapper, IValidator<Article> validator)
         {
             this.articleService = articleService;
             this.categoryService = categoryService;
             this.mapper = mapper;
+            this.validator = validator;
         }
         public async Task<IActionResult> Index()
         {
@@ -37,9 +42,18 @@ namespace Blog.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(ViewArticleAdd viewArticleAdd)
         {
-            await articleService.CreateArticleAsync(viewArticleAdd);
-            RedirectToAction("Index","Article", new {Area = "Admin"});
+            var map = mapper.Map<Article>(viewArticleAdd);
+            var result = await validator.ValidateAsync(map);
 
+            if (result.IsValid)
+            {
+                await articleService.CreateArticleAsync(viewArticleAdd);
+                return RedirectToAction("Index", "Article", new { Area = "Admin" });
+            }
+            else
+            {
+                result.AddToModelState(this.ModelState);
+            }
             var categories = await categoryService.GetAllCategoriesNonDeleted();
             return View(new ViewArticleAdd { Categories = categories });
         }
@@ -63,6 +77,12 @@ namespace Blog.Web.Areas.Admin.Controllers
             viewArticleUpdate.Categories = categories;
 
             return View(viewArticleUpdate);
+        }
+        public async Task<IActionResult> Delete(Guid articleId)
+        {
+            await articleService.SafeDeleteArticleAsync(articleId);
+
+            return RedirectToAction("Index", "Article", new { Area = "Admin" });
         }
     }
 }
