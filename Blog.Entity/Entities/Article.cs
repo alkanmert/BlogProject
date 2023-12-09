@@ -16,13 +16,15 @@ namespace Blog.Entity.Entities
         { 
         
         }
-        public Article(string title, string content, Guid userId, Guid categoryId, Guid imageId)
+
+        public Article(string title, string content,Guid userId, string author, Guid categoryId, Guid imageId)
         {
             Title = title;
             Content = content;
             UserId = userId;
             CategoryId = categoryId;
             ImageId = imageId;
+            Author = author;
         }
         public string Title { get; set; }
         public string Content { get; set; }
