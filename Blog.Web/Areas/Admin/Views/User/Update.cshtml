@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model ViewUserUpdate
+
+<div class="container mt-5 shadow pb-3  bg-body">
+
+    <div class="d-flex d-flex justify-content-between  py-3 mb-4">
+        <h4 class="fw-bold">
+            <span class="text-muted fw-light">Kullanıcı Yönetimi /</span> Kullanıcı Ekle
+        </h4>
+    </div>
+    <form asp-controller="User" asp-action="Update" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All" style="color: red"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="FirstName">İsim</label>
+            <input asp-for="FirstName" class="form-control" placeholder="İsim giriniz" aria-describedby="defaultFormControl">
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="LastName">Soyisim</label>
+            <input asp-for="LastName" class="form-control" placeholder="Soyisim giriniz" aria-describedby="defaultFormControl">
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="RoleId">Rol</label>
+            <select asp-for="RoleId" class="form-control" asp-items="@(new SelectList(Model.Roles,"Id","Name"))"></select>
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="Email">Email</label>
+            <input asp-for="Email" type="email" class="form-control" placeholder="Email adresi giriniz" aria-describedby="defaultFormControl">
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label" asp-for="PhoneNumber">Telefon Numarası</label>
+            <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="Telefon Numarası giriniz" aria-describedby="defaultFormControl">
+        </div>
+        <div class="form-grup">
+            <button type="submit" class="btn btn-primary btn-block">Kaydet</button>
+        </div>
+    </form>
+

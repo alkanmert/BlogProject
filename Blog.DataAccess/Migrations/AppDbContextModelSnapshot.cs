@@ -53,21 +53,21 @@ namespace Blog.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("c4d933c2-411e-4485-bc06-006604ec11fa"),
-                            ConcurrencyStamp = "0983edad-733a-4907-b0d2-fbfc97b3010b",
+                            ConcurrencyStamp = "3586f141-1d1a-4746-9345-7e367871beca",
                             Name = "Superadmin",
                             NormalizedName = "SUPERADMİN"
                         },
                         new
                         {
                             Id = new Guid("7750a061-fd25-462d-a4ee-cd8929525408"),
-                            ConcurrencyStamp = "0b710bc3-e5b1-4582-bc0f-4df796de96a5",
+                            ConcurrencyStamp = "8efed7c0-bdc1-4948-b2fc-5fc8d50cd827",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("66dcaabe-5427-4703-a557-48431fce10e5"),
-                            ConcurrencyStamp = "5439e7eb-cdaf-4626-80b9-fb2f88c8fac2",
+                            ConcurrencyStamp = "86101090-3dfc-49b7-8ed5-0aef37992d7d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -180,7 +180,7 @@ namespace Blog.DataAccess.Migrations
                         {
                             Id = new Guid("5746464f-c6d1-4f4c-91f8-a106e489e20e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "38e4d8dc-65db-48fb-80bb-0b16046978b6",
+                            ConcurrencyStamp = "54b6f12a-eb3a-4f71-beb5-c3df938eddc1",
                             Email = "superadmin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Mert",
@@ -189,10 +189,10 @@ namespace Blog.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERADMIN@GMAIL.COM",
                             NormalizedUserName = "SUPERADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPnZrhnv0rP9KVZ2Kwjc8i1ICYrUTeIwNVwy0d3S/dztsse0z9ctt/412m1bD/oZBA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIUy84nQ7UPpZOCfLVN3AFR4QBJrGEP6g7LjMMEiZjPswvp7ewNhYoFxeAw3gvkluA==",
                             PhoneNumber = "+905435554545",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "9c049c52-2998-4926-8504-b340f4a8ff8b",
+                            SecurityStamp = "8616e50b-2033-461a-b98e-96c99a0614f3",
                             TwoFactorEnabled = false,
                             UserName = "superadmin@gmail.com"
                         },
@@ -200,7 +200,7 @@ namespace Blog.DataAccess.Migrations
                         {
                             Id = new Guid("a5c8d88a-6a51-4b46-b192-867138c8654f"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0fbc9b11-9828-4665-81cd-1e998d015aa8",
+                            ConcurrencyStamp = "20480304-8bae-4067-b5ad-92d8269f8a56",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -209,10 +209,10 @@ namespace Blog.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMJt82NWxmoy9QQCTXB9bwwqVSHOLAa8HFGTq/aDQIvlnpiXmyKkc/eJpkABhpfFkQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBhVW0VR8/lEUYQ7AbYuJf4NOAlQFjKJw6cAUcoDxf+sUQ03pMDLd+Io7cV8T7fhEw==",
                             PhoneNumber = "+905435558888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5689833f-0064-464b-976c-7d2ce821d89d",
+                            SecurityStamp = "041c8354-9ab9-41dd-a332-69abe117bc43",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -328,6 +328,10 @@ namespace Blog.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -372,11 +376,12 @@ namespace Blog.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("67406233-adeb-4c6a-934a-6a5162e52737"),
+                            Id = new Guid("3eb4e735-be6a-42f9-87b6-566b0492563e"),
                             Author = "Mertcan Alkan",
                             CategoryId = new Guid("b78b5ef8-714b-4c4d-93aa-f7c09863cf9b"),
                             Content = "Merhababaaaababababababa",
-                            CreatedDate = new DateTime(2023, 10, 30, 17, 13, 3, 297, DateTimeKind.Local).AddTicks(9115),
+                            CreatedBy = "MertAlkan",
+                            CreatedDate = new DateTime(2023, 12, 15, 17, 50, 58, 114, DateTimeKind.Local).AddTicks(1094),
                             ImageId = new Guid("5a6b603d-c15a-4508-ae7c-49f82ea5e8b0"),
                             IsDeleted = false,
                             Title = "Deneme",
@@ -385,11 +390,12 @@ namespace Blog.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cf271ae3-682a-4b7f-8a83-0e86969894f2"),
+                            Id = new Guid("9a78c125-94f0-42cb-88b5-04474e9d57cb"),
                             Author = "Mertcan Alkan",
                             CategoryId = new Guid("31e1cb79-1160-47e3-ace7-33afcacb763e"),
                             Content = "LoremLoremloremmmmmmmmmm",
-                            CreatedDate = new DateTime(2023, 10, 30, 17, 13, 3, 297, DateTimeKind.Local).AddTicks(9152),
+                            CreatedBy = "MertAlkan",
+                            CreatedDate = new DateTime(2023, 12, 15, 17, 50, 58, 114, DateTimeKind.Local).AddTicks(1130),
                             ImageId = new Guid("8a7b7e4b-956b-4907-9945-b6864f6b3ccb"),
                             IsDeleted = false,
                             Title = "Deneme2",
@@ -403,6 +409,10 @@ namespace Blog.DataAccess.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -434,14 +444,16 @@ namespace Blog.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("b78b5ef8-714b-4c4d-93aa-f7c09863cf9b"),
-                            CreatedDate = new DateTime(2023, 10, 30, 17, 13, 3, 297, DateTimeKind.Local).AddTicks(9502),
+                            CreatedBy = "MertAlkan",
+                            CreatedDate = new DateTime(2023, 12, 15, 17, 50, 58, 114, DateTimeKind.Local).AddTicks(1495),
                             IsDeleted = false,
                             Name = "ASP.Net Core"
                         },
                         new
                         {
                             Id = new Guid("31e1cb79-1160-47e3-ace7-33afcacb763e"),
-                            CreatedDate = new DateTime(2023, 10, 30, 17, 13, 3, 297, DateTimeKind.Local).AddTicks(9506),
+                            CreatedBy = "MertAlkan",
+                            CreatedDate = new DateTime(2023, 12, 15, 17, 50, 58, 114, DateTimeKind.Local).AddTicks(1500),
                             IsDeleted = false,
                             Name = "Dünya"
                         });
@@ -452,6 +464,10 @@ namespace Blog.DataAccess.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -487,7 +503,8 @@ namespace Blog.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("5a6b603d-c15a-4508-ae7c-49f82ea5e8b0"),
-                            CreatedDate = new DateTime(2023, 10, 30, 17, 13, 3, 297, DateTimeKind.Local).AddTicks(9751),
+                            CreatedBy = "MertAlkan",
+                            CreatedDate = new DateTime(2023, 12, 15, 17, 50, 58, 114, DateTimeKind.Local).AddTicks(1734),
                             FileName = "Deneme",
                             FileType = "jpg",
                             IsDeleted = false
@@ -495,7 +512,8 @@ namespace Blog.DataAccess.Migrations
                         new
                         {
                             Id = new Guid("8a7b7e4b-956b-4907-9945-b6864f6b3ccb"),
-                            CreatedDate = new DateTime(2023, 10, 30, 17, 13, 3, 297, DateTimeKind.Local).AddTicks(9756),
+                            CreatedBy = "MertAlkan",
+                            CreatedDate = new DateTime(2023, 12, 15, 17, 50, 58, 114, DateTimeKind.Local).AddTicks(1738),
                             FileName = "Deneme2",
                             FileType = "png",
                             IsDeleted = false

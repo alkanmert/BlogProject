@@ -18,6 +18,7 @@ namespace Blog.DataAccess.Mappings
                 Id = Guid.Parse("B78B5EF8-714B-4C4D-93AA-F7C09863CF9B"),
                 Name = "ASP.Net Core",
                 CreatedDate = DateTime.Now,
+                CreatedBy = "MertAlkan",
                 ModifiedBy = null,
                 DeletedBy = null,
                 IsDeleted = false
@@ -27,6 +28,7 @@ namespace Blog.DataAccess.Mappings
                 Id = Guid.Parse("31E1CB79-1160-47E3-ACE7-33AFCACB763E"),
                 Name = "Dünya",
                 CreatedDate = DateTime.Now,
+                CreatedBy = "MertAlkan",
                 ModifiedBy = null,
                 DeletedBy = null,
                 IsDeleted = false

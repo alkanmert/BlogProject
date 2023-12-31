@@ -7,9 +7,9 @@ namespace Blog.Service.Services.Abstract
     {
         Task<List<ViewArticle>> GetAllArticlesWithCategoryNonDeletedAsync();
         Task<ViewArticle> GetArticleWithCategoryNonDeletedAsync(Guid articleId);
-        Task UpdateArticleAsync(ViewArticleUpdate viewArticleUpdate);
         Task CreateArticleAsync(ViewArticleAdd viewArticleAdd);
+        Task<string> UpdateArticleAsync(ViewArticleUpdate viewArticleUpdate);
+        Task<string> SafeDeleteArticleAsync(Guid articleId);
 
-        Task SafeDeleteArticleAsync(Guid articleId);
     }
 }

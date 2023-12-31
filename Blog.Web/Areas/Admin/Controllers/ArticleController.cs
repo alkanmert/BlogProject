@@ -4,6 +4,7 @@ using Blog.Entity.ViewModels.Articles;
 using Blog.Service.Extensions;
 using Blog.Service.Services.Abstract;
 using Blog.Service.Services.Concrete;
+using Blog.Web.ResultMessages;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -38,7 +39,7 @@ namespace Blog.Web.Areas.Admin.Controllers
         public async Task<IActionResult> Add()
         {
     
-            var categories = await categoryService.GetAllCategoriesNonDeleted();
+            var categories = await categoryService.GetAllCategoriesNonDeletedAsync();
             return View(new ViewArticleAdd { Categories = categories});
         }
 
@@ -58,14 +59,14 @@ namespace Blog.Web.Areas.Admin.Controllers
             {
                 result.AddToModelState(this.ModelState);
             }
-            var categories = await categoryService.GetAllCategoriesNonDeleted();
+            var categories = await categoryService.GetAllCategoriesNonDeletedAsync();
             return View(new ViewArticleAdd { Categories = categories });
         }
         [HttpGet]
         public async Task<IActionResult> Update(Guid articleId)
         {
             var article = await articleService.GetArticleWithCategoryNonDeletedAsync(articleId);
-            var categories = await categoryService.GetAllCategoriesNonDeleted();
+            var categories = await categoryService.GetAllCategoriesNonDeletedAsync();
 
             var viewArticleUpdate = mapper.Map<ViewArticleUpdate>(article);
             viewArticleUpdate.Categories = categories;
@@ -75,11 +76,21 @@ namespace Blog.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(ViewArticleUpdate viewArticleUpdate)
         {
-            await articleService.UpdateArticleAsync(viewArticleUpdate);
-            
-            var categories = await categoryService.GetAllCategoriesNonDeleted();
-            viewArticleUpdate.Categories = categories;
+            var map = mapper.Map<Article>(viewArticleUpdate);
+            var result = await validator.ValidateAsync(map);
+            if (result.IsValid)
+            {
+                var title = await articleService.UpdateArticleAsync(viewArticleUpdate);
+                toast.AddSuccessToastMessage(Messages.Article.Update(title), new ToastrOptions() { Title = "İşlem Başarılı" });
+                return RedirectToAction("Index", "Article", new { Area = "Admin" });
+            }
+            else
+            {
+                result.AddToModelState(this.ModelState);
+            }
 
+            var categories = await categoryService.GetAllCategoriesNonDeletedAsync();
+            viewArticleUpdate.Categories = categories;
             return View(viewArticleUpdate);
         }
         public async Task<IActionResult> Delete(Guid articleId)
